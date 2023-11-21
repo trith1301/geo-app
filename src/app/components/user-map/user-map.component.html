@@ -1,0 +1,18 @@
+<div id="user-map"></div>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Submit this location?"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <ng-container *nzModalContent>
+    <nz-card style="width: 300px" nzTitle="Location information">
+      <p>Lng: {{ submitLocation.lng }}</p>
+      <p>Lat: {{ submitLocation.lat }}</p>
+    </nz-card>
+  </ng-container>
+</nz-modal>
+
+<div *ngIf="isShowLoader" id="loader">
+  <div class="spinner"></div>
+</div>

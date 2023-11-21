@@ -1,0 +1,21 @@
+.logo {
+  max-width: 40px;
+}
+
+nz-header {
+  z-index: 10000000000000000000000;
+  position: fixed;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+
+  padding-left: 120px;
+  padding-right: 120px;
+}
+
+[nz-menu] {
+  height: 100%;
+}

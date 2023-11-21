@@ -1,0 +1,70 @@
+<div class="container">
+  <h5 nz-typography>Places Management</h5>
+  <nz-table
+    [nzTableLayout]="'fixed'"
+    #places
+    [nzData]="listOfDisplayData"
+    [nzLoading]="tableLoading"
+  >
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th nzCustomFilter>
+          Name
+          <nz-filter-trigger
+            [(nzVisible)]="visible"
+            [nzActive]="searchValue.length > 0"
+            [nzDropdownMenu]="menu"
+          >
+            <span nz-icon nzType="search"></span>
+          </nz-filter-trigger>
+        </th>
+        <th>Coordinate</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of places.data">
+        <td>{{ data.id }}</td>
+        <td>{{ data.name }}</td>
+        <td>{{ { lat: data.lat, lng: data.lng } | json }}</td>
+        <td>
+          <select
+            (change)="updateStatus(data.id, $event)"
+            [(ngModel)]="data.status"
+          >
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="declined">Declined</option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input
+          type="text"
+          nz-input
+          placeholder="Search name"
+          [(ngModel)]="searchValue"
+        />
+        <button
+          nz-button
+          nzSize="small"
+          nzType="primary"
+          (click)="search()"
+          class="search-button"
+        >
+          Search
+        </button>
+        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+</div>
+
+<div *ngIf="isShowLoader" id="loader">
+  <div class="spinner"></div>
+</div>
